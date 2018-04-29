@@ -1,14 +1,15 @@
 #include"Grammar.h"
+#include <iostream>  
 using namespace std;
 class Grammar{
 	public:
-		char allwords[100][20] ;
+		char allwords[100][100] ;
 		int leftvalue,rightvalue ;
 		int global;
 		int statmode,eqmode ;
 		map<string, int> mapVarInt;
 		map<string,string> mapVarStr;
-		Grammar(char s[][20],int gl){
+		Grammar(char s[][100],int gl){
 			for(int i =0;i<gl;i++){
 				strcpy(allwords[i],s[i]);
 			}
@@ -18,15 +19,20 @@ class Grammar{
 		}
 		
 		//Declare new variables
-		void Declare(char s[],int number,char ss[],int type){
+		void Declare(string s,int number,string ss,int type){
 			if(type==STR){
-				mapVarStr[s]=*ss;
+				mapVarStr[s]=ss;
+//			    map<string, string>::iterator iter;  
+//			    for(iter = mapVarStr.begin(); iter != mapVarStr.end(); iter++)  
+//			        cout<<iter->first<<' '<<iter->second<<endl;  
 			}
 			if(type==INT){
 				mapVarInt[s]=number;
+//			    map<string, int>::iterator iter;  
+//			    for(iter = mapVarInt.begin(); iter != mapVarInt.end(); iter++)  
+//			        cout<<iter->first<<' '<<iter->second<<endl;  
 			}
 		}
-		
 		
 		// Show words
 		void PrintAllWords(){

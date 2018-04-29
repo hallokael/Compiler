@@ -6,11 +6,10 @@
 class Parser{
 	public:
 
-		char s[100];
-		char allwords[100][20] ;
-		int splitmode;
-		int global;
-		
+		char s[500]; //origin statement
+		char allwords[100][100] ; //words after split 
+		int splitmode; //mode of last char
+		int global; //quantity of words
 		
 		Parser(char *ss){
 			global=0;
@@ -19,9 +18,23 @@ class Parser{
 		}
 		
 		void Split(){
-		    int FirstFlag=-1 ;
+		    int FirstFlag=-1 ;   // start position of word
 		    for(int i=0 ;s[i]!='\0' ;i+=1){
-		        if(!IsAllowedWords(s[i],splitmode)){
+		    	if(s[i]=='\"'){  //special for string
+		    		if(splitmode!=4){
+		    			splitmode=4;
+		    			FirstFlag=i;
+					}else{
+						SplitToAll(s,FirstFlag,i);
+						splitmode=-1;
+						FirstFlag=-1;
+						continue;
+					}
+				}
+				if(splitmode==4){
+					continue;
+				}
+		        if(!IsAllowedWords(s[i],splitmode)){   //  enter if c==' ' or char's mode is different from the last one
 		            if(FirstFlag!=-1){
 		                SplitToAll(s,FirstFlag,i-1) ;
 		                if(s[i]==' ')

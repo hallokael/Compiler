@@ -35,13 +35,12 @@ int Str2Int(char str[]){
 // Number 1
 // Letter 2
 // Other  3
+// String 4  like "njdeclsek"
 
 int getmode(char c){
-    int mode ;
     if(c<='9' && c>='0')
-        mode=1 ;
+        return 1;
     else if(c<='z' && c>='a')
-        mode=2 ;
-    else mode=3 ;
-    return mode ; 
+        return 2;
+    return 3 ;
 }

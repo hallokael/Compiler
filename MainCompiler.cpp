@@ -1,6 +1,6 @@
 #include"MainCompiler.h"
 using namespace std ;
-char s[100],c ;
+char s[500],c ;
 void getS(char s[]);
 
 void Init(){
@@ -16,7 +16,6 @@ bool Run(){
     	
     	Grammar g(p.allwords,p.global);
         g.CheckPattern();
-        
     }
 }
 int main(){
