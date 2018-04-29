@@ -6,10 +6,11 @@
 class Parser{
 	public:
 
-		char s[];
+		char s[100];
 		char allwords[100][20] ;
 		int splitmode;
 		int global;
+		
 		
 		Parser(char *ss){
 			global=0;

@@ -3,8 +3,6 @@ using namespace std ;
 char s[100],c ;
 void getS(char s[]);
 
-
-
 void Init(){
     printf(">>>") ;
     getS(s) ;

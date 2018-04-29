@@ -1,26 +1,32 @@
-#include"stdio.h"
-#include"string.h"
-#include"utils.h"
-
-#define CALC 1
-#define SETVALUE 2
-#define GETVALUE 3
-#define ISEQUAL 4
-
+#include"Grammar.h"
+using namespace std;
 class Grammar{
 	public:
 		char allwords[100][20] ;
 		int leftvalue,rightvalue ;
 		int global;
-		int statmode ;
+		int statmode,eqmode ;
+		map<string, int> mapVarInt;
+		map<string,string> mapVarStr;
 		Grammar(char s[][20],int gl){
 			for(int i =0;i<gl;i++){
 				strcpy(allwords[i],s[i]);
 			}
-//			*allwords=*s;
 			leftvalue=rightvalue=0;
 			global=gl;
+			statmode=0,eqmode=0;
 		}
+		
+		//Declare new variables
+		void Declare(char s[],int number,char ss[],int type){
+			if(type==STR){
+				mapVarStr[s]=*ss;
+			}
+			if(type==INT){
+				mapVarInt[s]=number;
+			}
+		}
+		
 		
 		// Show words
 		void PrintAllWords(){
@@ -33,35 +39,88 @@ class Grammar{
 		    int u=0 ;
 		    char c='+' ;
 		    for(int i=0 ;i<global ;i++){
+		    	
 		        if(strcmp(allwords[i],"+")==0){
 		            c='+' ;
 		        }
 		        if(strcmp(allwords[i],"-")==0){
 		            c='-' ;
 		        }
+		        
+		        if(strcmp(allwords[i],">")==0){
+		            leftvalue=u ;
+		            u=0 ;
+		            statmode=ISEQUAL;
+		            eqmode=1;
+		        }
+		        if(strcmp(allwords[i],">=")==0){
+		            leftvalue=u ;
+		            u=0 ;
+		            statmode=ISEQUAL;
+		            eqmode=2;
+		        }
+		        if(strcmp(allwords[i],"<")==0){
+		            leftvalue=u ;
+		            u=0 ;
+		            statmode=ISEQUAL;
+		            eqmode=3;
+		        }
+		        if(strcmp(allwords[i],"<=")==0){
+		            leftvalue=u ;
+		            u=0 ;
+		            statmode=ISEQUAL;
+		            eqmode=4;
+		        }
 		        if(strcmp(allwords[i],"==")==0){
 		            leftvalue=u ;
 		            u=0 ;
+		            statmode=ISEQUAL;
+		            eqmode=5;
 		        }
-		        if(!IsDigit(allwords[i][0]))
-		            continue ;
+		        if(strcmp(allwords[i],"=")==0){
+		        	statmode=SETVALUE;
+		        	
+		        }		        
+		        		       
+		        if(!IsDigit(allwords[i][0])){
+					continue;
+				}
 		        if(c=='+'){
 		            u+=Str2Int(allwords[i]) ;
-		            //printf("temp : %d\n",u) ;
 		        }else if(c=='-'){
 		            u-=Str2Int(allwords[i]) ;
 		        }
 		    }
 		    if(statmode==ISEQUAL){
-		        if(u>leftvalue)
-		            return 1 ;
-		        if(u<leftvalue)
-		            return -1 ;
-		        if(u==leftvalue)
-		            return 0 ;
+		    	if(eqmode==1){
+			        if(leftvalue>u)
+			            return 1 ;
+			        return -1 ;	    		
+				}
+		    	if(eqmode==2){
+			        if(leftvalue>=u)
+			            return 1 ;
+			        return -1 ;	    		
+				}
+				if(eqmode==3){
+			        if(leftvalue<u)
+			            return 1 ;
+			        return -1 ;	    		
+				}
+				if(eqmode==4){
+			        if(leftvalue<=u)
+			            return 1 ;
+			        return -1 ;    		
+				}
+				if(eqmode==5){
+			        if(u==leftvalue)
+			            return 1 ;
+					return -1;		    		
+				}		    
 		    }
 		    return u ;
 		}
+
 		void calc(){
 		    PrintAllWords() ;
 		    printf("result : %d\n",ActToAll()) ;
