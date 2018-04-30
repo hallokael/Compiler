@@ -1,4 +1,3 @@
-
 #include"stdio.h"
 #include"utils.h"
 #include"string.h"
@@ -14,7 +13,7 @@ class Parser{
 		Parser(char *ss){
 			global=0;
 			splitmode=-1;
-			strcpy(s,ss);
+			strcpy_s(s,ss);
 		}
 		
 		void Split(){

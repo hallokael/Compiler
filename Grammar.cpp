@@ -1,100 +1,88 @@
 #include"Grammar.h"
-#include <iostream>  
+#include"Variable.cpp"
+#include <iostream>
 using namespace std;
 class Grammar{
 	public:
-		char allwords[100][100] ;
+		string Ss[100] ;
 		int leftvalue,rightvalue ;
 		int global;
 		int statmode,eqmode ;
-		map<string, int> mapVarInt;
-		map<string,string> mapVarStr;
-		Grammar(char s[][100],int gl){
+		Variable v;
+		string ERROR;
+		Grammar(char s[][100],int gl,Variable vv){
 			for(int i =0;i<gl;i++){
-				strcpy(allwords[i],s[i]);
+				Ss[i] = s[i];
+				cout << Ss[i] << " StringTrans" << endl;
 			}
 			leftvalue=rightvalue=0;
 			global=gl;
 			statmode=0,eqmode=0;
+			v = vv;
 		}
-		
-		//Declare new variables
-		void Declare(string s,int number,string ss,int type){
-			if(type==STR){
-				mapVarStr[s]=ss;
-//			    map<string, string>::iterator iter;  
-//			    for(iter = mapVarStr.begin(); iter != mapVarStr.end(); iter++)  
-//			        cout<<iter->first<<' '<<iter->second<<endl;  
-			}
-			if(type==INT){
-				mapVarInt[s]=number;
-//			    map<string, int>::iterator iter;  
-//			    for(iter = mapVarInt.begin(); iter != mapVarInt.end(); iter++)  
-//			        cout<<iter->first<<' '<<iter->second<<endl;  
-			}
-		}
-		
 		// Show words
 		void PrintAllWords(){
 		    printf("%d Words:\n",global) ;
 		    for(int i =0 ;i<global ;i+=1){
-		        printf("%s\n",allwords[i]) ;
+				cout << Ss[i] << endl;
 		    }
 		}
 		int ActToAll(){
 		    int u=0 ;
 		    char c='+' ;
+
 		    for(int i=0 ;i<global ;i++){
-		    	
-		        if(strcmp(allwords[i],"+")==0){
+				string s = Ss[i];
+		        if(s=="+"){
 		            c='+' ;
 		        }
-		        if(strcmp(allwords[i],"-")==0){
+		        if(s=="-"){
 		            c='-' ;
 		        }
-		        
-		        if(strcmp(allwords[i],">")==0){
+		        if(s==">"){
 		            leftvalue=u ;
 		            u=0 ;
 		            statmode=ISEQUAL;
 		            eqmode=1;
 		        }
-		        if(strcmp(allwords[i],">=")==0){
+		        if(s==">="){
 		            leftvalue=u ;
 		            u=0 ;
 		            statmode=ISEQUAL;
 		            eqmode=2;
 		        }
-		        if(strcmp(allwords[i],"<")==0){
+		        if(s=="<"){
 		            leftvalue=u ;
 		            u=0 ;
 		            statmode=ISEQUAL;
 		            eqmode=3;
 		        }
-		        if(strcmp(allwords[i],"<=")==0){
+		        if(s=="<="){
 		            leftvalue=u ;
 		            u=0 ;
 		            statmode=ISEQUAL;
 		            eqmode=4;
 		        }
-		        if(strcmp(allwords[i],"==")==0){
+		        if(s=="=="){
 		            leftvalue=u ;
 		            u=0 ;
 		            statmode=ISEQUAL;
 		            eqmode=5;
 		        }
-		        if(strcmp(allwords[i],"=")==0){
+		        if(s=="="){
 		        	statmode=SETVALUE;
-		        	
-		        }		        
+		        }
 		        		       
-		        if(!IsDigit(allwords[i][0])){
+		        if(!IsDigit(s[0])){
+					if (v.IsExist(s)) {
+
+					}
 					continue;
 				}
 		        if(c=='+'){
-		            u+=Str2Int(allwords[i]) ;
+		            u+=Str2Int(s) ;
 		        }else if(c=='-'){
-		            u-=Str2Int(allwords[i]) ;
+		            u-=Str2Int(s) ;
 		        }
 		    }
 		    if(statmode==ISEQUAL){
@@ -124,9 +112,12 @@ class Grammar{
 					return -1;		    		
 				}		    
 		    }
+		    if(statmode==SETVALUE){
+				//if()
+		    	v.AddVariable(Ss[0],Str2Int(Ss[2]),"",INT);
+			}
 		    return u ;
 		}
-
 		void calc(){
 		    PrintAllWords() ;
 		    printf("result : %d\n",ActToAll()) ;

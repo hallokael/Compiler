@@ -1,8 +1,8 @@
 #include"MainCompiler.h"
 using namespace std ;
 char s[500],c ;
+Variable v;
 void getS(char s[]);
-
 void Init(){
     printf(">>>") ;
     getS(s) ;
@@ -14,7 +14,7 @@ bool Run(){
     	Parser p(s);
     	p.Split();
     	
-    	Grammar g(p.allwords,p.global);
+    	Grammar g(p.allwords,p.global,v);
         g.CheckPattern();
     }
 }

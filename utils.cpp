@@ -1,6 +1,9 @@
-
+#include"utils.h"
+#define _CRT_SECURE_NO_WARNINGS
 #define LOW 1
 #define CAP 2
+
+using namespace std;
 bool IsDigit(char c){
     if(c>='0' && c<='9')return true ;
     else return false ;
@@ -29,6 +32,16 @@ int Str2Int(char str[]){
         u*=10 ;
     }
     return u/=10 ;
+}
+int Str2Int(string str) {
+	int u = 0;
+	for (int i = 0; str[i] != '\0'; i++) {
+		if (!IsDigit(str[i]))
+			return 0;
+		u += (str[i] - '0');
+		u *= 10;
+	}
+	return u /= 10;
 }
 
 // Mode
