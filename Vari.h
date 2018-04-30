@@ -6,4 +6,4 @@
 #include <string>  
 #include <set>
 #include <iostream>
-class Variable;
+class Vari;

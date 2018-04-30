@@ -1,6 +1,5 @@
 #include"Grammar.h"
-#include"Variable.cpp"
-#include <iostream>
+
 using namespace std;
 class Grammar{
 	public:
@@ -8,9 +7,12 @@ class Grammar{
 		int leftvalue,rightvalue ;
 		int global;
 		int statmode,eqmode ;
-		Variable v;
+		Variables v;
 		string ERROR;
-		Grammar(char s[][100],int gl,Variable vv){
+
+
+
+		Grammar(char s[][100],int gl,Variables vv){
 			for(int i =0;i<gl;i++){
 				Ss[i] = s[i];
 				cout << Ss[i] << " StringTrans" << endl;
@@ -109,7 +111,7 @@ class Grammar{
 				if(eqmode==5){
 			        if(u==leftvalue)
 			            return 1 ;
-					return -1;		    		
+					return -1;
 				}		    
 		    }
 		    if(statmode==SETVALUE){
@@ -123,7 +125,14 @@ class Grammar{
 		    printf("result : %d\n",ActToAll()) ;
 		}
 		void CheckPattern(){
+
 		    calc() ;
+		}
+		Vari GetResult(int start, int end) {
+			Vari v(0,"",INT);
+			for (int i = start; i <= end; i++) {
+
+			}
 		}
 		void Calc(){
 		    printf("result : %d\n",ActToAll()) ;

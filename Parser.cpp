@@ -18,6 +18,7 @@ class Parser{
 		
 		void Split(){
 		    int FirstFlag=-1 ;   // start position of word
+			int Deep = 0;        // deep of bracket
 		    for(int i=0 ;s[i]!='\0' ;i+=1){
 		    	if(s[i]=='\"'){  //special for string
 		    		if(splitmode!=4){
@@ -30,7 +31,38 @@ class Parser{
 						continue;
 					}
 				}
-				if(splitmode==4){
+				if (splitmode == 5 && s[i] == ')') {
+
+				}
+				if (s[i] == '(') {
+					if (splitmode != 5) {
+						splitmode = 5;
+						FirstFlag = i;
+						Deep = 1;
+					}
+					else {
+						Deep++;
+					}
+					//else {
+					//	SplitToAll(s, FirstFlag, i);
+					//	splitmode = -1;
+					//	FirstFlag = -1;
+					//}
+				}
+				if (s[i] == ')') {
+					if (splitmode != 5) {
+						cout << "ERROR \')\'" << endl;
+					}
+					else {
+						Deep--;
+						if (Deep == 0) {
+							SplitToAll(s, FirstFlag, i);
+							splitmode = -1;
+							FirstFlag = -1;
+						}
+					}
+				}
+				if(splitmode==4 || splitmode==5){
 					continue;
 				}
 		        if(!IsAllowedWords(s[i],splitmode)){   //  enter if c==' ' or char's mode is different from the last one

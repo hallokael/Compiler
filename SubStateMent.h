@@ -1,15 +1,13 @@
 #pragma once
 #include<stdio.h>
 #include"utils.h"
-#include<map>
+#include <map>
 #include <string.h>  
 #include <string>  
 #include <set>
-#include<vector>
+#include <iostream>
 #include"Variables.cpp"
 #include"Vari.cpp"
-#include"SubStateMent.cpp"
+#include"Calculator.cpp"
 #include <iostream>
-
-
-
+class SubStateMent;

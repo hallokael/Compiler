@@ -1,4 +1,4 @@
-
+#pragma once
 #include<iostream>
 #include<string>
 #include<algorithm>
@@ -18,7 +18,7 @@
 
 #include"Grammar.cpp"
 #include"Parser.cpp"
-#include"Variable.cpp"
+#include"Variables.cpp"
 
 
 

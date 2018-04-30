@@ -6,4 +6,5 @@
 #include <string>  
 #include <set>
 #include <iostream>
+#include"Vari.cpp"
 class Calculator;

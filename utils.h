@@ -9,7 +9,8 @@ bool IsLetter(char c,int mode);
 int Str2Int(char str[]);
 int Str2Int(string str);
 int getmode(char c);
-
+int getmode(string s);
+struct vari;
 //statmode
 #define INIT 0
 #define CALC 1
@@ -25,6 +26,22 @@ int getmode(char c);
 //variable
 #define STR 1
 #define INT 2
+//Gstatemode
+#define CALC 1
+#define EQA 2
+#define SET 3
+#define DEF 4
+
+// Word's Mode
+// Number 1
+// Letter 2
+// String 3  like "njdeclsek"
+// Other  4
+#define NUMBER 1
+#define LETTER 2
+#define STRING 3
+#define BRACKET 4
+
 
 #endif
 

@@ -1,5 +1,4 @@
 #include"utils.h"
-#define _CRT_SECURE_NO_WARNINGS
 #define LOW 1
 #define CAP 2
 
@@ -44,11 +43,7 @@ int Str2Int(string str) {
 	return u /= 10;
 }
 
-// Mode
-// Number 1
-// Letter 2
-// Other  3
-// String 4  like "njdeclsek"
+
 
 int getmode(char c){
     if(c<='9' && c>='0')
@@ -56,4 +51,19 @@ int getmode(char c){
     else if(c<='z' && c>='a')
         return 2;
     return 3 ;
+}
+// Mode
+// Number 1
+// Letter 2
+// String 3  like "njdeclsek"
+// Other  4
+int getmode(string s) {
+	if (s[0] <= '9' && s[0] >= '0')
+		return 1;
+	else if (s[0] <= 'z' && s[0] >= 'a')
+		return 2;
+	else if (s[0] == '\"')
+		return 3;
+	else if (s[0]=='(')
+		return 4;
 }

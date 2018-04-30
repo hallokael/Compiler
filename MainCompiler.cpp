@@ -1,7 +1,7 @@
 #include"MainCompiler.h"
 using namespace std ;
 char s[500],c ;
-Variable v;
+Variables v;
 void getS(char s[]);
 void Init(){
     printf(">>>") ;

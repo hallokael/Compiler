@@ -18,6 +18,13 @@ Calculator: calculation rules in varied situation
 
 Variable: store,declare and change variables
 
+
+Vari: dynamic type: string and int
+
+
+SubStateMent: statement splited by words such as "== > < ="
+
+
 utils: some useful helper functions
 
 
@@ -25,8 +32,18 @@ utils: some useful helper functions
 Now Supporting plus,sub,declare,equal,gt,lt....
 ---
 
+
+
 V1.01
 ---
 1.Create Variable and Calculator.
 
 2.Change char[] to string
+
+V1.02
+---
+1.Create Vari and SubStatement
+
+2.String addition
+
+3.New mode : bracket
