@@ -9,13 +9,9 @@ class Grammar{
 		int statmode,eqmode ;
 		Variables v;
 		string ERROR;
-
-
-
 		Grammar(char s[][100],int gl,Variables vv){
 			for(int i =0;i<gl;i++){
 				Ss[i] = s[i];
-				cout << Ss[i] << " StringTrans" << endl;
 			}
 			leftvalue=rightvalue=0;
 			global=gl;
@@ -29,113 +25,54 @@ class Grammar{
 				cout << Ss[i] << endl;
 		    }
 		}
-		int ActToAll(){
-		    int u=0 ;
-		    char c='+' ;
-
-		    for(int i=0 ;i<global ;i++){
-				string s = Ss[i];
-		        if(s=="+"){
-		            c='+' ;
-		        }
-		        if(s=="-"){
-		            c='-' ;
-		        }
-		        if(s==">"){
-		            leftvalue=u ;
-		            u=0 ;
-		            statmode=ISEQUAL;
-		            eqmode=1;
-		        }
-		        if(s==">="){
-		            leftvalue=u ;
-		            u=0 ;
-		            statmode=ISEQUAL;
-		            eqmode=2;
-		        }
-		        if(s=="<"){
-		            leftvalue=u ;
-		            u=0 ;
-		            statmode=ISEQUAL;
-		            eqmode=3;
-		        }
-		        if(s=="<="){
-		            leftvalue=u ;
-		            u=0 ;
-		            statmode=ISEQUAL;
-		            eqmode=4;
-		        }
-		        if(s=="=="){
-		            leftvalue=u ;
-		            u=0 ;
-		            statmode=ISEQUAL;
-		            eqmode=5;
-		        }
-		        if(s=="="){
-		        	statmode=SETVALUE;
-		        }
-		        		       
-		        if(!IsDigit(s[0])){
-					if (v.IsExist(s)) {
-
-					}
-					continue;
-				}
-		        if(c=='+'){
-		            u+=Str2Int(s) ;
-		        }else if(c=='-'){
-		            u-=Str2Int(s) ;
-		        }
-		    }
-		    if(statmode==ISEQUAL){
-		    	if(eqmode==1){
-			        if(leftvalue>u)
-			            return 1 ;
-			        return -1 ;	    		
-				}
-		    	if(eqmode==2){
-			        if(leftvalue>=u)
-			            return 1 ;
-			        return -1 ;	    		
-				}
-				if(eqmode==3){
-			        if(leftvalue<u)
-			            return 1 ;
-			        return -1 ;	    		
-				}
-				if(eqmode==4){
-			        if(leftvalue<=u)
-			            return 1 ;
-			        return -1 ;    		
-				}
-				if(eqmode==5){
-			        if(u==leftvalue)
-			            return 1 ;
-					return -1;
-				}		    
-		    }
-		    if(statmode==SETVALUE){
-				//if()
-		    	v.AddVariable(Ss[0],Str2Int(Ss[2]),"",INT);
-			}
-		    return u ;
-		}
-		void calc(){
-		    PrintAllWords() ;
-		    printf("result : %d\n",ActToAll()) ;
-		}
 		void CheckPattern(){
-
-		    calc() ;
+			vector< pair<int, int> > p = SepToSub();
+			vector< Vari > pR = SubToResult(p);
+			
+			GetTotalResult(p,pR);
+	
+			PrintAllWords();
 		}
-		Vari GetResult(int start, int end) {
-			Vari v(0,"",INT);
-			for (int i = start; i <= end; i++) {
-
+		void GetTotalResult(vector< pair<int, int> >p, vector< Vari > pR) {
+			int Total = 1;
+			if (p.size() == 1) {
+				return;
+			}
+			for (int i = p.size() - 1; i >= 1; i--) {
+				//int tempT = Connect(pR[i-1],pR[i],Ss[p[i].first-1]);
 			}
 		}
-		void Calc(){
-		    printf("result : %d\n",ActToAll()) ;
-		    printf("MODE : %d\n",statmode) ;
+		int Connect(Vari LeftV,Vari RightV,string Connector) {
+
+		}
+		//split statement to substatement
+		vector< pair<int, int> > SepToSub() {
+			vector< pair<int, int> > p;
+			int leftSep = 0, rightSep = global - 1;
+			for (int i = global - 1; i >= 0; i--) {
+				for (int j = 0; j < 7; j++) {    //...........
+					if (Ss[i] == compare[j]) {
+						leftSep = i + 1;
+						p.push_back(pair<int, int>(leftSep, rightSep));
+						rightSep = i - 1;
+					}
+				}
+			}
+			p.push_back(pair<int, int>(0, rightSep));
+			cout << to_string(p.size()) << " SubStateMent" << endl;
+			for (int i = 0; i < p.size(); i++) {
+				cout << "SubStateMent " << i << " " << p[i].first << " " << p[i].second << endl;
+			}
+			return p;
+		}
+		//get result of all substatement
+		vector< Vari > SubToResult(vector< pair<int, int> > p) {
+			vector<Vari> vVari;
+			for (int i = 0; i < p.size(); i++) {
+				SubStateMent sub(Ss, p[i].first, p[i].second, v);
+				vVari.push_back(sub.GetResult());
+				cout << "vVari Cal:" << vVari[i].num << "  " << vVari[i].s << endl;
+			}
+			return vVari;
 		}
 };

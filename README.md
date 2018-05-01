@@ -42,8 +42,13 @@ V1.01
 
 V1.02
 ---
-1.Create Vari and SubStatement
+1.Create Vari and SubStateMent
 
 2.String addition
 
 3.New mode : bracket
+
+V1.03
+---
+1.Set keywords
+2.Refactor Grammar : Get result from SubStateMent

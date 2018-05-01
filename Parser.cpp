@@ -31,9 +31,6 @@ class Parser{
 						continue;
 					}
 				}
-				if (splitmode == 5 && s[i] == ')') {
-
-				}
 				if (s[i] == '(') {
 					if (splitmode != 5) {
 						splitmode = 5;

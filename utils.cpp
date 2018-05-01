@@ -3,6 +3,13 @@
 #define CAP 2
 
 using namespace std;
+
+//keywords
+string keywords[] = { "for","while","if" };
+string opera[] = { "*","/","+","-","%","^","!" };
+string compare[] = { "==","!=",">","<",">=","<=","=" };
+
+
 bool IsDigit(char c){
     if(c>='0' && c<='9')return true ;
     else return false ;

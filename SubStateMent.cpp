@@ -4,14 +4,17 @@
 //SubStateMent is splited from statement by words such as "== > < ="
 //so all SubStateMent must have a result (except assignment operation) 
 class SubStateMent {
+public:
+	Variables V;
 	string s[100];
 	int length;
 	string calcs = "+=*/%^!";
-	SubStateMent(string Ss[],int start,int end) {
-		for (int i = start; i < end; i++) {
+	SubStateMent(string Ss[],int start,int end,Variables vv) {
+		for (int i = start; i <= end; i++) {
 			s[i - start] = Ss[i];
 		}
-		length = end - start;
+		length = end - start+1;
+		V = vv;
 	}
 
 	// Word's Mode
@@ -50,12 +53,14 @@ class SubStateMent {
 				break;
 			case LETTER:
 				if (c == '+') {
-
+					tempv=V.GetVariable(s[i]);
+					v = C.Plus(tempv, v);
 				}
 				break;
 			case STRING:
+				tempv = ToVari(s[i]);
 				if (c == '+') {
-
+					v = C.Plus(tempv, v);
 				}
 				break;
 			default:
@@ -63,5 +68,7 @@ class SubStateMent {
 			}
 			//Vari vTemp()
 		}
+		cout << "" << endl;
+		return v;
 	}
 };

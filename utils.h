@@ -41,7 +41,9 @@ struct vari;
 #define LETTER 2
 #define STRING 3
 #define BRACKET 4
-
+string keywords[] ;
+string opera[];
+string compare[];
 
 #endif
 

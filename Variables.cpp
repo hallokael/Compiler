@@ -9,7 +9,7 @@ public:
 	map<string, Vari> mapVar;
 	set< string > setVar;
 	set< string >::iterator ite1;
-	Vari v;
+	//Vari v;
 	bool IsExist(string s) {
 		if (setVar.find( s ) != setVar.end()) {
 			cout << s << " is declared as int" << endl;
@@ -23,29 +23,27 @@ public:
 		return false;
 	}
 	//Declare new variables
-	bool AddVariable(string s,int num,string ss,int type){
+	bool AddVariable(string s,Vari v){
 		
-		if (type == STR) {
-			v.num = num, v.s = ss, v.type = STR;
+		if (v.type == STR) {
 			mapVar[s] = v;
 			setVar.insert(s);
-			cout << "Success to declare " << s << " as " << ss << endl;
+			cout << "Success to declare " << s << " as " << v.s << endl;
 			map<string,Vari>::iterator iter;
 			if (mapVar.begin()== mapVar.end()) {
-				cout << "ERROR" << endl;
+				cout << "ERROR Declare failed" << endl;
 			}
 			for (iter = mapVar.begin(); iter != mapVar.end(); iter++)
 				cout << iter->first << ' ' << iter->second.s << endl;
 			return true;
 		}
-		if (type == INT) {
-			v.num = num, v.s = ss, v.type = INT;
+		if (v.type == INT) {
 			mapVar[s] = v;
 			setVar.insert(s);
-			cout << "Success to declare " << s << " as " << num << endl;
+			cout << "Success to declare " << s << " as " << v.num << endl;
 			map<string,Vari>::iterator iter;
 			if (mapVar.begin() == mapVar.end()) {
-				cout << "ERROR" << endl;
+				cout << "ERROR Declare failed" << endl;
 			}
 			for (iter = mapVar.begin(); iter != mapVar.end(); iter++) {
 				cout << iter->first << ' ' << iter->second.num << endl;
@@ -54,5 +52,13 @@ public:
 			return true;
 		}
 		return false;
+	}
+	Vari GetVariable(string s) {
+		if (IsExist(s)) {
+			return mapVar[s];
+		}
+		else {
+			cout << s << " not defined ERROR" << endl;
+		}
 	}
 };
