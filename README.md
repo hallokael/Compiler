@@ -7,10 +7,10 @@ Prototype Of A Scripting Language Compiler
 MainCompiler: main loop to get string and execute
 
 
-Parser: split statement to words
+Parser: split input string to words
 
 
-Grammar: analyze words to get result
+Grammar: split words to substatement and connect them
 
 
 Calculator: calculation rules in varied situation
@@ -19,7 +19,7 @@ Calculator: calculation rules in varied situation
 Variable: store,declare and change variables
 
 
-Vari: dynamic type: string and int
+Vari: dynamic type for string and int
 
 
 SubStateMent: statement splited by words such as "== > < ="
@@ -51,4 +51,5 @@ V1.02
 V1.03
 ---
 1.Set keywords
+
 2.Refactor Grammar : Get result from SubStateMent
