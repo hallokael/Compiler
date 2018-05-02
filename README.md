@@ -75,5 +75,6 @@ V1.05
 V1.06
 ---
 1.Add LRvari
+
 2.Support grammar like "3<5>3>a=1"
 
