@@ -53,3 +53,13 @@ V1.03
 1.Set keywords
 
 2.Refactor Grammar : Get result from SubStateMent
+
+V1.04
+---
+1.Fix bugs in bracket mode and string mode
+
+2.Failed to refactor vari by template or virtual
+
+3.Fix bugs in Calculator
+
+4.Finish GetVariable and "=" part of Connector

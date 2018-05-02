@@ -45,5 +45,8 @@ string keywords[] ;
 string opera[];
 string compare[];
 
+//#include"Variables.cpp"
+//Variables V;
+
 #endif
 

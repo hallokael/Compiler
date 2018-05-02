@@ -5,9 +5,9 @@
 using namespace std;
 
 //keywords
-string keywords[] = { "for","while","if" };
-string opera[] = { "*","/","+","-","%","^","!" };
-string compare[] = { "==","!=",">","<",">=","<=","=" };
+string keywords[] = { "for","while","if", };
+string opera[] = { "*","/","+","-","%","^","!", };
+string compare[] = { "==","!=",">","<",">=","<=","=", };
 
 
 bool IsDigit(char c){

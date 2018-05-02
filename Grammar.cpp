@@ -1,5 +1,5 @@
 #include"Grammar.h"
-
+#include"GLOBAL.h"
 using namespace std;
 class Grammar{
 	public:
@@ -7,16 +7,18 @@ class Grammar{
 		int leftvalue,rightvalue ;
 		int global;
 		int statmode,eqmode ;
-		Variables v;
+		Variables V;
 		string ERROR;
-		Grammar(char s[][100],int gl,Variables vv){
+		Grammar() {
+			cout << "Create Grammar" << endl;
+		}
+		void Get(char s[][100],int gl){
 			for(int i =0;i<gl;i++){
 				Ss[i] = s[i];
 			}
 			leftvalue=rightvalue=0;
 			global=gl;
 			statmode=0,eqmode=0;
-			v = vv;
 		}
 		// Show words
 		void PrintAllWords(){
@@ -39,11 +41,22 @@ class Grammar{
 				return;
 			}
 			for (int i = p.size() - 1; i >= 1; i--) {
-				//int tempT = Connect(pR[i-1],pR[i],Ss[p[i].first-1]);
+				int tempT = Connect(pR[i],pR[i-1],Ss[p[i].second+1]);
 			}
 		}
 		int Connect(Vari LeftV,Vari RightV,string Connector) {
-
+			cout << "Connect   " << LeftV.num << " " << LeftV.s << "   " << RightV.num << " " << RightV.s << "   " << Connector << endl;
+			if (Connector == "=") {
+				if (LeftV.name != "") {
+					RightV.name = LeftV.name;
+					V.AddVariable(LeftV.name, RightV);
+					cout << "Assignment OK  :" << LeftV.name << endl;
+				}
+				else {
+					cout << "Assignment ERROR" << endl;
+				}
+			}
+			return 1;
 		}
 		//split statement to substatement
 		vector< pair<int, int> > SepToSub() {
@@ -59,17 +72,17 @@ class Grammar{
 				}
 			}
 			p.push_back(pair<int, int>(0, rightSep));
-			cout << to_string(p.size()) << " SubStateMent" << endl;
-			for (int i = 0; i < p.size(); i++) {
-				cout << "SubStateMent " << i << " " << p[i].first << " " << p[i].second << endl;
-			}
+			//cout << to_string(p.size()) << " SubStateMent" << endl;
+			//for (int i = 0; i < p.size(); i++) {
+			//	cout << "SubStateMent " << i << " " << p[i].first << " " << p[i].second << endl;
+			//}
 			return p;
 		}
 		//get result of all substatement
 		vector< Vari > SubToResult(vector< pair<int, int> > p) {
 			vector<Vari> vVari;
 			for (int i = 0; i < p.size(); i++) {
-				SubStateMent sub(Ss, p[i].first, p[i].second, v);
+				SubStateMent sub(Ss, p[i].first, p[i].second,V);
 				vVari.push_back(sub.GetResult());
 				cout << "vVari Cal:" << vVari[i].num << "  " << vVari[i].s << endl;
 			}

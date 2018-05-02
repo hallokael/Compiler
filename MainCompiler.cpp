@@ -1,9 +1,9 @@
 #include"MainCompiler.h"
 using namespace std ;
 char s[500],c ;
-Variables v;
 void getS(char s[]);
-void Init(){
+Grammar g;
+void Get(){
     printf(">>>") ;
     getS(s) ;
 }
@@ -13,14 +13,14 @@ bool Run(){
     }else{
     	Parser p(s);
     	p.Split();
-    	
-    	Grammar g(p.allwords,p.global,v);
+
+    	g.Get(p.allwords,p.global);
         g.CheckPattern();
     }
 }
 int main(){
     do{
-        Init() ;
+        Get() ;
     }while(Run()) ;
     return 0 ;
 }

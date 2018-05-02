@@ -22,6 +22,11 @@ class Parser{
 		    for(int i=0 ;s[i]!='\0' ;i+=1){
 		    	if(s[i]=='\"'){  //special for string
 		    		if(splitmode!=4){
+						//split the last when enter string mode
+						if (FirstFlag != -1) {
+							SplitToAll(s, FirstFlag, i-1);
+						}
+						//string mode
 		    			splitmode=4;
 		    			FirstFlag=i;
 					}else{
@@ -31,8 +36,13 @@ class Parser{
 						continue;
 					}
 				}
-				if (s[i] == '(') {
+				if (s[i] == '(') { //special for bracket
 					if (splitmode != 5) {
+						//split the last when enter bracket mode
+						if (FirstFlag != -1) {
+							SplitToAll(s, FirstFlag, i - 1);
+						}
+						//bracket mode
 						splitmode = 5;
 						FirstFlag = i;
 						Deep = 1;
@@ -40,13 +50,8 @@ class Parser{
 					else {
 						Deep++;
 					}
-					//else {
-					//	SplitToAll(s, FirstFlag, i);
-					//	splitmode = -1;
-					//	FirstFlag = -1;
-					//}
 				}
-				if (s[i] == ')') {
+				if (s[i] == ')') { //special for bracket
 					if (splitmode != 5) {
 						cout << "ERROR \')\'" << endl;
 					}

@@ -12,11 +12,7 @@ public:
 	//Vari v;
 	bool IsExist(string s) {
 		if (setVar.find( s ) != setVar.end()) {
-			cout << s << " is declared as int" << endl;
-			return true;
-		}
-		if (setVar.find( s ) != setVar.end()) {
-			cout << s << " is declared as str" << endl;
+			cout << s << " is declared" << endl;
 			return true;
 		}
 		cout << s << " is not declared" << endl;
@@ -28,37 +24,44 @@ public:
 		if (v.type == STR) {
 			mapVar[s] = v;
 			setVar.insert(s);
-			cout << "Success to declare " << s << " as " << v.s << endl;
-			map<string,Vari>::iterator iter;
-			if (mapVar.begin()== mapVar.end()) {
-				cout << "ERROR Declare failed" << endl;
-			}
-			for (iter = mapVar.begin(); iter != mapVar.end(); iter++)
-				cout << iter->first << ' ' << iter->second.s << endl;
+			cout << "STR:Success to declare " << s << " as " << v.s << endl;
+
+			PrintmapVar();
+
 			return true;
 		}
 		if (v.type == INT) {
 			mapVar[s] = v;
 			setVar.insert(s);
-			cout << "Success to declare " << s << " as " << v.num << endl;
-			map<string,Vari>::iterator iter;
-			if (mapVar.begin() == mapVar.end()) {
-				cout << "ERROR Declare failed" << endl;
-			}
-			for (iter = mapVar.begin(); iter != mapVar.end(); iter++) {
-				cout << iter->first << ' ' << iter->second.num << endl;
-			}
+			cout << "INT:Success to declare " << s << " as " << v.num << endl;
+			
+			PrintmapVar();
 				
 			return true;
 		}
 		return false;
 	}
 	Vari GetVariable(string s) {
+		cout << "GetVariable  " << s << endl;
 		if (IsExist(s)) {
-			return mapVar[s];
+			Vari v = mapVar[s];
+			cout << "Variable Attribute:" << v.name << "  " << to_string(v.num) << "   " << v.s << "  " << to_string(v.type) << endl;
+			return v;
 		}
 		else {
 			cout << s << " not defined ERROR" << endl;
 		}
+		PrintmapVar();
+		return Vari(0, "", INT);
+	}
+	void PrintmapVar() {
+		cout << "PrintmapVar" << endl;
+		map<string, Vari>::iterator iter;
+		for (iter = mapVar.begin(); iter != mapVar.end(); iter++) {
+			cout << iter->first << ' ' << iter->second.num << endl;
+		}
+	}
+	Variables() {
+		cout << "Create Variables" << endl;
 	}
 };

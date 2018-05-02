@@ -7,10 +7,22 @@ public:
 		return Vari(0,Ls+Rs,STR);
 	}
 	Vari Plus(string Ls, int Rs) {
-		return Vari(0,Ls+to_string(Rs),STR);
+		if (Ls != "") {
+			return Vari(0, Ls + to_string(Rs), STR);
+		}
+		else {
+			return Vari(Rs,"", INT);
+		}
+		//return Vari(0, Ls + to_string(Rs), STR);
+		
 	}
 	Vari Plus(int Ls, string Rs) {
-		return Vari(0,to_string(Ls) + Rs,STR);
+		if (Rs != "") {
+			return Vari(0, Rs + to_string(Ls), STR);
+		}
+		else {
+			return Vari(Ls, "", INT);
+		}
 	}
 	Vari Plus(int Ls, int Rs) {
 		return Vari(Ls + Rs,"",INT);
@@ -30,6 +42,6 @@ public:
 		}
 	}
 	Calculator() {
-		cout << "Create a Calculator" << endl;
+		//cout << "Create a Calculator" << endl;
 	}
 };
