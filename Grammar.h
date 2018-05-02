@@ -9,6 +9,7 @@
 #include"Variables.cpp"
 #include"Vari.cpp"
 #include"SubStateMent.cpp"
+#include"LRvari.cpp"
 #include <iostream>
 
 

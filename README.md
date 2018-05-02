@@ -72,3 +72,8 @@ V1.05
 
 3.Now keyword has priority
 
+V1.06
+---
+1.Add LRvari
+2.Support grammar like "3<5>3>a=1"
+

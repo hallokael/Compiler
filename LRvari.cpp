@@ -2,6 +2,7 @@
 // When we combine a substatement,different values for left and right is needed
 #include"Vari.cpp"
 class LRvari {
+public:
 	Vari L;
 	Vari R;
 };

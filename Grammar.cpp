@@ -29,15 +29,14 @@ public:
 	}
 	void CheckPattern() {
 		vector< pair<int, int> > p = SepToSub();
-		vector< Vari > pR = SubToResult(p);
-
+		vector< LRvari > pR = SubToResult(p);
 		GetFinalResult(p, pR);
 
 		PrintAllWords();
 	}
 
 	// GetFinalResult : from right to left
-	void GetFinalResult(vector< pair<int, int> >p, vector< Vari > pR) {
+	void GetFinalResult(vector< pair<int, int> >p, vector< LRvari > pR) {
 		int Total = 1;
 		// In every loop , del two sub and add a new sub include them
 		// new sub'name is "Y" or "N"
@@ -50,7 +49,7 @@ public:
 				for (int i = p.size() - 1; i >= 1; i--) {
 					string con = Ss[p[i-1].second + 1];
 					if (Compare[j] == con) {
-						Vari tempT = Connect(pR[i-1], pR[i], con);
+						LRvari tempT = Connect(pR[i-1], pR[i], con);
 
 						p.insert(p.begin() + i - 1, pair<int, int>(p[i - 1].first, p[i].second));
 						p.erase(p.begin() + i, p.begin() + i+2);
@@ -65,41 +64,47 @@ public:
 				}
 			}
 		}
-		Vari Final = pR[0];
+		LRvari Final = pR[0];
 
-		if (pR[0].name != "N") {
+		if (pR[0].L.name != "N") {
 			cout << "True" << endl;
 		}
 		else {
 			cout << "False" << endl;
 		}
 	}
-	Vari Connect(Vari LeftV, Vari RightV, string Connector) {
+	LRvari Connect(LRvari &LeftV, LRvari &RightV, string Connector) {
 
 		//cout << "Connect   " << LeftV.num << " " << LeftV.s << "   " << RightV.num << " " << RightV.s << "   " << Connector << endl;
 		//cout << "LEFTV" << endl;
-		//LeftV.show();
+		//LeftV.L.show();
+		//LeftV.R.show();
 		//cout << "RIGHTV" << endl;
-		//RightV.show();
+		//RightV.L.show();
+		//RightV.R.show();
 
 		// Vari's name is used for TAG to show the result
 		// return LeftV
 
 		//  part =
 		if (Connector == "=") {
-			if (LeftV.name != "") {
-				RightV.name = LeftV.name;
-				V.AddVariable(LeftV.name, RightV);
-				cout << "Assignment OK  :" << LeftV.name << endl;
+			if (LeftV.R.name != "") {
+				RightV.L.name = LeftV.R.name;
+				V.AddVariable(LeftV.R.name, RightV.L);
+				LeftV.R = RightV.L;
+				LeftV.L = RightV.L;
+				cout << "Assignment OK  :" << LeftV.R.name << endl;
 			}
 			else {
 				cout << "Assignment ERROR" << endl;
 			}
-			if (LeftV.name=="N" || RightV.name == "N") {
-				LeftV.name = "N";
+			if (LeftV.R.name=="N" || RightV.L.name == "N") {
+				LeftV.L.name = "N";
+				LeftV.R.name = "N";
 			}
 			else {
-				LeftV.name = "Y";
+				LeftV.L.name = "Y";
+				LeftV.R.name = "Y";
 			}
 			
 		}
@@ -114,12 +119,13 @@ public:
 
 		return LeftV;
 	}
-	void DealEqualCon(Vari &LeftV,Vari &RightV,string Connector) {
+	void DealEqualCon(LRvari &LeftV,LRvari &RightV,string Connector) {
 		//cout << "DealEqualCon" << endl;
 		//LeftV.show();
 		//RightV.show();
-		if (LeftV.name == "N" || RightV.name == "N") {
-			LeftV.name = "N";
+		if (LeftV.R.name == "N" || RightV.L.name == "N") {
+			LeftV.L.name = "N";
+			LeftV.R.name = "N";
 			return;
 		}
 		map < string, vector<int> > m;
@@ -140,15 +146,27 @@ public:
 		m["<"] = v;
 		for (int i = 0; m[Connector][i]!=-1; i++) {
 			cout << "mConnector : " << m[Connector][i] << endl;
-			if (C.Equal(LeftV, RightV) == m[Connector][i]) {
-				cout << "Change LeftV to Y" << endl;
-				LeftV.name = "Y";
+			if (C.Equal(LeftV.R, RightV.L) == m[Connector][i]) {
+				cout << "YEStoCONNECT  " << LeftV.R.num << "  " << RightV.L.num << endl;
+				//cout << "Change LeftV to Y" << endl;
+				LeftV.L.name = "Y";
+				LeftV.R.name = "Y";
+				string s = LeftV.R.name;
+				LeftV.R = RightV.R;
+				cout << "LeftV.R.num = " << LeftV.R.num << endl;
+				LeftV.R.name = s;
 				return;
 			}
 			else {
-				LeftV.name = "N";
+				cout << "NOtoCONNECT  " << LeftV.R.num << "  " << RightV.L.num << endl;
+				LeftV.L.name = "N";
+				LeftV.R.name = "N";
 			}
 		}
+		string s = LeftV.R.name;
+		LeftV.R = RightV.R;
+		cout << "LeftV.R.num = " << LeftV.R.num << endl;
+		LeftV.R.name = s;
 
 	}
 	//split statement to substatement : from left to right
@@ -172,12 +190,15 @@ public:
 		return p;
 	}
 	//get result of all substatement : from left to right
-	vector< Vari > SubToResult(vector< pair<int, int> > p) {
-		vector<Vari> vVari;
+	vector< LRvari > SubToResult(vector< pair<int, int> > p) {
+		vector<LRvari> vVari;
 		for (int i = 0; i < p.size(); i++) {
 			SubStateMent sub(Ss, p[i].first, p[i].second, V);
-			vVari.push_back(sub.GetResult());
-			cout << "vVari Cal:" << vVari[i].num << "  " << vVari[i].s << endl;
+			LRvari v;
+			v.L = sub.GetResult();
+			v.R = v.L;
+			vVari.push_back(v);
+			cout << "vVari Cal:" << vVari[i].L.num << "  " << vVari[i].L.s << endl;
 		}
 		return vVari;
 	}
