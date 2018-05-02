@@ -17,12 +17,6 @@ struct vari;
 #define SETVALUE 2
 #define GETVALUE 3
 #define ISEQUAL 4
-//eqmode
-#define GT 1
-#define GTE 2
-#define LT 3
-#define LTE 4
-#define EQ 5
 //variable
 #define STR 1
 #define INT 2
@@ -31,7 +25,11 @@ struct vari;
 #define EQA 2
 #define SET 3
 #define DEF 4
-
+//Calculator_Equal
+#define ERR -1
+#define EQ 1
+#define GT 2
+#define LT 3
 // Word's Mode
 // Number 1
 // Letter 2
@@ -41,9 +39,14 @@ struct vari;
 #define LETTER 2
 #define STRING 3
 #define BRACKET 4
-string keywords[] ;
-string opera[];
-string compare[];
+
+//KeyWords
+#define NUMBER_OF_KEYWORDS 3
+#define NUMBER_OF_OPERA 7
+#define NUMBER_OF_COMPARE 9
+string Keywords[] ;
+string Opera[];
+string Compare[];
 
 //#include"Variables.cpp"
 //Variables V;

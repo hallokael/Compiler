@@ -11,7 +11,7 @@ public:
 	set< string >::iterator ite1;
 	//Vari v;
 	bool IsExist(string s) {
-		if (setVar.find( s ) != setVar.end()) {
+		if (setVar.find(s) != setVar.end()) {
 			cout << s << " is declared" << endl;
 			return true;
 		}
@@ -19,8 +19,8 @@ public:
 		return false;
 	}
 	//Declare new variables
-	bool AddVariable(string s,Vari v){
-		
+	bool AddVariable(string s, Vari v) {
+
 		if (v.type == STR) {
 			mapVar[s] = v;
 			setVar.insert(s);
@@ -34,9 +34,9 @@ public:
 			mapVar[s] = v;
 			setVar.insert(s);
 			cout << "INT:Success to declare " << s << " as " << v.num << endl;
-			
+
 			PrintmapVar();
-				
+
 			return true;
 		}
 		return false;
@@ -62,6 +62,6 @@ public:
 		}
 	}
 	Variables() {
-		cout << "Create Variables" << endl;
+		//cout << "Create Variables" << endl;
 	}
 };

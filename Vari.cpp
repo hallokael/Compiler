@@ -7,8 +7,8 @@ public:
 	int num;
 	string s;
 	int type;
-	string name="";
-	Vari(int nu,string ss,int ty) {
+	string name = "";
+	Vari(int nu, string ss, int ty) {
 		num = nu;
 		s = ss;
 		type = ty;
@@ -16,6 +16,12 @@ public:
 
 	Vari() {
 		//cout << "Create a Vari" << endl;
+	}
+	void show() {
+		cout << "name:" << name << endl;
+		cout << "string:" << s << endl;
+		cout << "num:" << num << endl;
+		cout << "type:" << type << endl;
 	}
 };
 

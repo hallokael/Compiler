@@ -63,3 +63,12 @@ V1.04
 3.Fix bugs in Calculator
 
 4.Finish GetVariable and "=" part of Connector
+
+V1.05
+---
+1.Finish equalmode in connector
+
+2.GetFinalResult by combine substatement one by one
+
+3.Now keyword has priority
+
